@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ recipe.title }}</h1>
+    <p class="text-muted">{{ recipe.description }}</p>
+    <img src="{{ recipe.image.url }}" alt="Image of: {{ recipe.title }}">
+    {% for ingredient in recipe.ingredients.all %}
+        <p>{{ingredient.weight}}{{ ingredient.unit_of_measurement.unit_shorthand }} of {{ ingredient.name }}</p>
+    {% endfor %}
+    <h3>{{ recipe.category.title }}</h3>
+    <h4>Price for this recipe</h4>
+    <h1>£{{ recipe.price }}</h1>
+    <p class="text-muted">Add to basket?</p>
+    <div class="flex">
+        <h1 id="number_to_add">0</h1>
+        <button class="btn btn-primary">Add to cart</button>
+        <button id="add" class="btn btn-success">+</button>
+        <button id="subtract" class="btn btn-danger">-</button>
+    </div>
+    <script>
+    $(document).ready(function(){
+        $("#add").click(function(){
+            var new_val = parseInt($("#number_to_add").text()) + 1;
+            if (new_val <= 5){
+                $("#number_to_add").text(new_val);
+            }
+        });
+        $("#subtract").click(function(){
+            var new_val = parseInt($("#number_to_add").text()) - 1;
+            if (new_val >= 0){
+                $("#number_to_add").text(new_val);
+            }
+        });
+    });
+    </script>
+{% endblock content %}

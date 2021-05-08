@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    'recipe',
     'crispy_forms',
 ]
 
@@ -49,6 +50,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'recipe.context_processors.categories',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -117,6 +119,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
 
+LOGIN_URL = "/auth/login/"
+
 LOGOUT_REDIRECT_URL = "/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Image storage
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

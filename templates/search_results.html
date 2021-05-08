@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Results {% endblock title %}
+
+{% block content %}
+<h1>Search Results</h1>
+
+<ul>
+  {% if recipes %}
+    {% for recipe in recipes %}
+      <li>
+        {{recipe.title}}
+        <a href="{{ recipe.get_absolute_url }}">Read more</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+      <h1>Sorry no recipes found.</h1>
+  {% endif %}
+{% endblock %}

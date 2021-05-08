@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Specific{% endblock title %}
+
+{% block content %}
+    {% for recipe in recipes %}
+    <h1>{{ recipe.title }}</h1>
+    <a href="{{ recipe.get_absolute_url }}">View More?</a>
+    {% endfor %}
+{% endblock content %}
