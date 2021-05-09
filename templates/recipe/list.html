@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Specific{% endblock title %}
+
+{% block content %}
+    {% for recipe in recipes %}
+        <h1>{{ recipe.title }}</h1>
+        <a href="{{ recipe.get_absolute_url }}">View More?</a>
+        {% if request.user.is_staff %}
+            <a href="{% url 'edit_recipe' id=recipe.id %}" class="btn btn-success">Update this post?</a>
+            <a href="{% url 'delete_recipe' id=recipe.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

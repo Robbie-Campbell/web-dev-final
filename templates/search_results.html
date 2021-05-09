@@ -11,6 +11,10 @@
       <li>
         {{recipe.title}}
         <a href="{{ recipe.get_absolute_url }}">Read more</a>
+        {% if request.user.is_staff %}
+          <a href="{% url 'edit_recipe' id=recipe.id %}" class="btn btn-success">Update this post?</a>
+          <a href="{% url 'delete_recipe' id=recipe.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>

@@ -12,9 +12,11 @@
         {% csrf_token %}
         {{form|crispy}}
         <button type="submit" class="btn btn-success">Update Recipe</button>
-        <a class="btn btn-danger" href="{% url 'delete_recipe' id=recipe.id %}">Delete Recipe</a>
     </form>
-    <a href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
+    <a class="btn btn-light" href="{% url 'single' id=recipe.id %}">See the Clients View</a>
+    <a class="btn btn-danger" href="{% url 'delete_recipe' id=recipe.id %}">Delete Recipe</a>
+    <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
+    <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
     <h3>Ingredients Added:</h3>
     {% for ingredient in ingredients %}
         <h3>{{ ingredient.name }}</h3>

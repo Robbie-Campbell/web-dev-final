@@ -32,6 +32,7 @@
                     <li class="nav-item active">
                         <a class="nav-link {% if request.path == '/' %}fw-bold{% endif %}" href="{% url 'home' %}">Home</a>
                     </li>
+                    {% if categories %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Categories
@@ -42,6 +43,25 @@
                             {% endfor %}
                         </div>
                     </li>
+                    {% endif %}
+                    {% if not request.user.is_staff %}
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/recipe/list/' %}fw-bold{% endif %}" href="{% url 'recipe_list' %}">New Recipes</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/recipe/create/' %}fw-bold{% endif %}" href="{% url 'create_recipe' %}">Create a Recipe</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/recipe/list/' %}fw-bold{% endif %}" href="{% url 'recipe_list' %}">Update a Recipe</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/staff/category/' %}fw-bold{% endif %}" href="{% url 'create_category' %}">Create a Category</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/staff/measurement/' %}fw-bold{% endif %}" href="{% url 'create_measurement' %}">Create a Measurement</a>
+                    </li>
+                    {% endif %}
                     {% if request.user.is_authenticated  %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>

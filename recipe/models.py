@@ -14,18 +14,10 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category', args=[self.id])
-    
-class Measurement(models.Model):
-    unit_shorthand = models.CharField(max_length=10, default="g")
-    unit_fullname = models.CharField(max_length=10, default="gram")
-
-    def __str__(self):
-        return self.unit_fullname
-
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="meals/", default="media/borat.gif")
+    image = models.ImageField(upload_to="meals/", default="borat.gif")
     description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -40,13 +32,3 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
-
-class Ingredient(models.Model):
-    name = models.CharField(max_length=100)
-    weight = models.IntegerField()
-    country_of_origin = models.CharField(max_length=100)
-    unit_of_measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
