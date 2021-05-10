@@ -61,6 +61,9 @@
                     <li class="nav-item active">
                         <a class="nav-link {% if request.path == '/staff/measurement/' %}fw-bold{% endif %}" href="{% url 'create_measurement' %}">Create a Measurement</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link {% if request.path == '/staff/edit/' %}fw-bold{% endif %}" href="{% url 'edit_cat_measurement' %}">Update Category or Measurement</a>
+                    </li>
                     {% endif %}
                     {% if request.user.is_authenticated  %}
                         <li class="nav-item">

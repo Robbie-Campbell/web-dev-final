@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Editing Category and Measurement{% endblock title %}
+
+{% block content %}
+    <h1>Category</h1>
+    {% for category in categories %}
+        <h4>{{ category.title }}</h4>
+        <a class="btn btn-info" href="{% url 'edit_category' id=category.id %}">Update</a>
+        <a class="btn btn-danger" href="{% url 'delete_category' id=category.id %}">Delete</a>
+    {% endfor %}
+    <h1>Measurement</h1>
+    {% for measurement in measurements %}
+        <h4>{{ measurement.unit_fullname }}</h4>
+        <a class="btn btn-info" href="{% url 'edit_measurement' id=measurement.id %}">Update</a>
+        <a class="btn btn-danger" href="{% url 'delete_measurement' id=measurement.id %}">Delete</a>
+    {% endfor %}
+{% endblock content %}
