@@ -30,8 +30,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/' %}fw-bold{% endif %}" href="{% url 'home' %}">Home</a>
+                    <li class="nav-item">
+                        <a class="nav-link">Home</a>
                     </li>
                     {% if categories %}
                     <li class="nav-item dropdown">
@@ -46,24 +46,21 @@
                     </li>
                     {% endif %}
                     {% if not request.user.is_staff %}
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link {% if request.path == '/recipe/list/' %}fw-bold{% endif %}" href="{% url 'recipe_list' %}">New Recipes</a>
                     </li>
                     {% else %}
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/recipe/create/' %}fw-bold{% endif %}" href="{% url 'create_recipe' %}">Create a Recipe</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/recipe/list/' %}fw-bold{% endif %}" href="{% url 'recipe_list' %}">Update a Recipe</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/staff/category/' %}fw-bold{% endif %}" href="{% url 'create_category' %}">Create a Category</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/staff/measurement/' %}fw-bold{% endif %}" href="{% url 'create_measurement' %}">Create a Measurement</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link {% if request.path == '/staff/edit/' %}fw-bold{% endif %}" href="{% url 'edit_cat_measurement' %}">Update Category or Measurement</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Staff Options
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'create_recipe' %}">Create a Recipe</a>
+                            <a class="dropdown-item" href="{% url 'recipe_list' %}">Update a Recipe</a>
+                            <a class="dropdown-item" href="{% url 'create_category' %}">Create a Category</a>
+                            <a class="dropdown-item" href="{% url 'create_measurement' %}">Create a Measurement</a>
+                            <a class="dropdown-item" href="{% url 'edit_cat_measurement' %}">Update Category or Measurement</a>
+                        </div>
                     </li>
                     {% endif %}
                     {% if request.user.is_authenticated  %}
@@ -72,10 +69,10 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/auth/login/' %}fw-bold{% endif %}" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/auth/register/' %}fw-bold{% endif %}" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
                         </li>
                     {% endif %}
                 </ul>

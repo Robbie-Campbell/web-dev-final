@@ -4,10 +4,14 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-    <form method="POST" class="form-group">
-        {% csrf_token %}
-        {{form|crispy}}
-        <button type="submit" class="btn btn-success">Update Category</button>
-    </form>
-    <a class="btn btn-danger" href="{% url 'delete_category' id=category.id %}">Delete this Category</a>
+<div class="container">
+    <div class="card mt-5">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success">Update Category</button>
+        </form>
+        <a class="btn btn-danger" href="{% url 'delete_category' id=category.id %}">Delete this Category</a>
+    </div>
+</div>
 {% endblock content %}

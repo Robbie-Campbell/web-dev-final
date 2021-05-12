@@ -18,11 +18,12 @@ class Category(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="meals/", default="borat.gif")
-    description = models.CharField(max_length=255)
+    description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
+    method = models.TextField(default="blah blah blah")
 
     def image_tag(self):
         return u'<img src="%s" />' % self.image.url

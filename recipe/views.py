@@ -20,7 +20,8 @@ def home(request):
 
 def single(request, id):
     recipe = Recipe.objects.get(id=id)
-    return render(request, 'recipe/single.html', {"recipe": recipe})
+    ingredients = Ingredient.objects.filter(recipe=id)
+    return render(request, 'recipe/single.html', {"recipe": recipe, "ingredients": ingredients})
 
 def index(request):
     recipes = Recipe.objects.all()
@@ -51,7 +52,6 @@ def create_recipe(request):
     return render(request, "recipe/create.html", {"form":form})
 
 @staff_member_required
-@login_required
 def edit_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     ingredients = None

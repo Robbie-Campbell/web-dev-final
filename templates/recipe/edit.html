@@ -17,9 +17,12 @@
                 {{form|crispy}}
                 <button type="submit" class="btn btn-success">Update Recipe</button>
             </form>
-            <div class="card-body m-4">
+            <div class="card-body">
                 <a class="btn btn-light" href="{% url 'recipe_single' id=recipe.id %}">See the Clients View</a>
-                <a class="btn btn-danger" href="{% url 'delete_recipe' id=recipe.id %}">Delete Recipe</a>
+                <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" href="{% url 'delete_recipe' id=recipe.id %}">Remove {{ recipe.title }}</button>
+                </form>
                 <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
                 <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
                 <h3>Ingredients Added:</h3>
@@ -27,7 +30,10 @@
                     <h3>{{ ingredient.name }}</h3>
                     <h6>From: {{ ingredient.country_of_origin }}</h6>
                     <p class="text-muted">{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }}</p>
-                    <a class="btn btn-danger" href="{% url 'delete_ingredient' id=ingredient.id %}">Remove {{ ingredient.name }}</a>
+                    <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" href="{% url 'delete_ingredient' id=ingredient.id %}">Remove {{ ingredient.name }}</button>
+                    </form>
                 {% endfor %}
             </div>
         </div>

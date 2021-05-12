@@ -1,9 +1,21 @@
 body{
-    background-color: #EEE;
+    background-color: #DDD;
+}
+
+.jumbotron {
+    background-image: url("web_photos/jumbo.jpg");
+    background-size: cover;
 }
 
 #number_to_add{
     border: 1px solid #CCC;
-    width:40px;
     background: #fff;
+}
+
+#description{
+    padding-bottom: 5px;
+    display: flex;
+    border-bottom: 1px solid #CCC;
+    justify-content:space-between;
+    align-items: right;
 }

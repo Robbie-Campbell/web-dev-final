@@ -3,12 +3,22 @@
 {% block title %}Specific{% endblock title %}
 
 {% block content %}
-    {% for recipe in recipes %}
-        <h1>{{ recipe.title }}</h1>
-        <a href="{{ recipe.get_absolute_url }}">View More?</a>
-        {% if request.user.is_staff %}
-            <a href="{% url 'edit_recipe' id=recipe.id %}" class="btn btn-success">Update this post?</a>
-            <a href="{% url 'delete_recipe' id=recipe.id %}" class="btn btn-danger">Delete</a>
-        {% endif %}
-    {% endfor %}
+    <div class="container">
+        <div class="card mt-5">
+            {% for recipe in recipes %}
+            <div style="border-bottom: 1px solid #CCC;" class="m-3">
+                <h1>{{ recipe.title }}</h1>
+                <p class="text-muted">{{ recipe.description }} | by {{ recipe.author }}</p>
+                <a href="{{ recipe.get_absolute_url }}">View More?</a>
+                {% if request.user.is_staff %}
+                    <a href="{% url 'edit_recipe' id=recipe.id %}" class="btn btn-success">Update this post?</a>
+                    <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+                        {% csrf_token %}
+                        <button style="width:100%" class="btn btn-danger" type="submit">Delete this recipe?</button>
+                    </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
