@@ -3,8 +3,32 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    Hello world
-    {% if username %}
-        <h1>Hello there {{ username }}</h1>
-    {% endif %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Food for You, it's Fresher</h1>
+        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem earum, culpa modi expedita
+            ducimus quas consectetur et est vero laboriosam eveniet, nesciunt temporibus molestias, odit rerum? Atque,
+            pariatur illum? Porro.</p>
+    </div>
+</div>
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for recipe in recipes %}
+    <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ recipe.title }}</h4>
+            </div>
+            <img src="{{ recipe.image.url }}" style="max-height:18vh" class="img-fluid" alt="Responsive image">
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>{{ recipe.description }}</li>
+                    <li></li>
+                </ul>
+                <a href="{% url 'recipe_single' id=recipe.id %}" class="w-100 btn btn-lg btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

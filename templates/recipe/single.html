@@ -3,22 +3,26 @@
 {% block title %}{{ recipe.title }}{% endblock title %}
 
 {% block content %}
-    <h1>{{ recipe.title }}</h1>
-    <p class="text-muted">{{ recipe.description }}</p>
-    <img src="{{ recipe.image.url }}" alt="Image of: {{ recipe.title }}">
-    {% for ingredient in recipe.ingredients.all %}
-        <p>{{ingredient.weight}}{{ ingredient.unit_of_measurement.unit_shorthand }} of {{ ingredient.name }}</p>
-    {% endfor %}
-    <h3>{{ recipe.category.title }}</h3>
-    <h4>Price for this recipe</h4>
-    <h1>£{{ recipe.price }}</h1>
-    <p class="text-muted">Add to basket?</p>
-    <div class="flex">
-        <h1 id="number_to_add">0</h1>
-        <button class="btn btn-primary">Add to cart</button>
-        <button id="add" class="btn btn-success">+</button>
-        <button id="subtract" class="btn btn-danger">-</button>
+<div class="container">
+    <div class="card mt-5">
+        <div>
+            <h5 class="card-header">{{ recipe.category }}</h5>
+        </div>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        <div class="card-body ml-5">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <h3 class="card-title">£{{ recipe.price }}</h3>
+            <p class="card-text">{{ recipe.description }}</p>
+            <p class="text-muted">Add to Cart?</p>
+            <h3 id="number_to_add">0</h3>
+            <div class="flex">
+                <button class="btn btn-primary">Add to cart</button>
+                <button id="add" class="btn btn-success">+</button>
+                <button id="subtract" class="btn btn-danger">-</button>
+            </div>
+        </div>
     </div>
+</div>
     <script>
     $(document).ready(function(){
         $("#add").click(function(){

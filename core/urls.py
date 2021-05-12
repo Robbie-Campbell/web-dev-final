@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from login.views import home
+from recipe.views import home
 from . import settings
 from django.conf.urls.static import static
 

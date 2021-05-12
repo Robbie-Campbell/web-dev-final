@@ -1,0 +1,9 @@
+body{
+    background-color: #EEE;
+}
+
+#number_to_add{
+    border: 1px solid #CCC;
+    width:40px;
+    background: #fff;
+}

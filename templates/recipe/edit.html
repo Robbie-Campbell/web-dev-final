@@ -5,23 +5,31 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-    <h1>{{ recipe.title }}</h1>
-    <img src="{{ recipe.image.url }}" alt="Image of {{ recipe.title }}">
-    {% load crispy_forms_tags %}
-    <form method="POST" class="form-group" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form|crispy}}
-        <button type="submit" class="btn btn-success">Update Recipe</button>
-    </form>
-    <a class="btn btn-light" href="{% url 'single' id=recipe.id %}">See the Clients View</a>
-    <a class="btn btn-danger" href="{% url 'delete_recipe' id=recipe.id %}">Delete Recipe</a>
-    <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
-    <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
-    <h3>Ingredients Added:</h3>
-    {% for ingredient in ingredients %}
-        <h3>{{ ingredient.name }}</h3>
-        <h6>From: {{ ingredient.country_of_origin }}</h6>
-        <p class="text-muted">{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }}</p>
-        <a class="btn btn-danger" href="{% url 'delete_ingredient' id=ingredient.id %}">Remove {{ ingredient.name }}</a>
-    {% endfor %}
+    <div class="container">
+        <div class="card mt-5">
+            <div>
+                <h5 class="card-header">Editing: {{ recipe.title }}</h5>
+            </div>
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            {% load crispy_forms_tags %}
+            <form method="POST" class="form-group m-4" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-success">Update Recipe</button>
+            </form>
+            <div class="card-body m-4">
+                <a class="btn btn-light" href="{% url 'recipe_single' id=recipe.id %}">See the Clients View</a>
+                <a class="btn btn-danger" href="{% url 'delete_recipe' id=recipe.id %}">Delete Recipe</a>
+                <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
+                <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
+                <h3>Ingredients Added:</h3>
+                {% for ingredient in ingredients %}
+                    <h3>{{ ingredient.name }}</h3>
+                    <h6>From: {{ ingredient.country_of_origin }}</h6>
+                    <p class="text-muted">{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }}</p>
+                    <a class="btn btn-danger" href="{% url 'delete_ingredient' id=ingredient.id %}">Remove {{ ingredient.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock content %}

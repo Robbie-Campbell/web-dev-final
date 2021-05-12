@@ -28,7 +28,7 @@ class Recipe(models.Model):
         return u'<img src="%s" />' % self.image.url
     
     def get_absolute_url(self):
-        return reverse('single', args=[self.id])
+        return reverse('recipe_single', args=[self.id])
 
     def __str__(self):
         return self.title

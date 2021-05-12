@@ -10,6 +10,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 
+def home(request):
+    username = None
+    recipes = Recipe.objects.all()[:3]
+    if request.user.is_authenticated:
+        username = request.user.username
+        return render(request, 'index.html', {"username": username, "recipes": recipes})
+    return render(request, 'index.html', {"recipes":recipes})
 
 def single(request, id):
     recipe = Recipe.objects.get(id=id)
@@ -54,7 +61,7 @@ def edit_recipe(request, id):
             form.save(commit=False)
             form.instance.published = True
             form.save()
-            return redirect("edit_recipe", id=id)
+            return redirect("recipe_single", id=id)
     else:
         data = {"title": recipe.title, "image": recipe.image, "description": recipe.description, "price": recipe.price, "category": recipe.category}
         form = EditRecipeForm(initial=data)
