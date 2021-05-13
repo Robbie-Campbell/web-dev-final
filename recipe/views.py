@@ -71,14 +71,12 @@ def edit_recipe(request, id):
 
 
 @staff_member_required
-@login_required
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
     return redirect('home')
 
 @staff_member_required
-@login_required
 def create_category(request):
     if request.method == "POST":
         form = CreateRecipeForm(request.POST)

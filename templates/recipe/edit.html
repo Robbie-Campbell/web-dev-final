@@ -15,16 +15,18 @@
             <form method="POST" class="form-group m-4" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form|crispy}}
-                <button type="submit" class="btn btn-success">Update Recipe</button>
+                <button type="submit" style="width:100%;" class="btn btn-success">Update Recipe</button>
             </form>
             <div class="card-body">
-                <a class="btn btn-light" href="{% url 'recipe_single' id=recipe.id %}">See the Clients View</a>
-                <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
-                    {% csrf_token %}
-                    <button class="btn btn-danger" type="submit" href="{% url 'delete_recipe' id=recipe.id %}">Remove {{ recipe.title }}</button>
-                </form>
-                <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
-                <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
+                <div class="btn-group-vertical" style="width:100%;" >
+                    <a class="btn btn-primary" href="{% url 'recipe_single' id=recipe.id %}">See the Clients View</a>
+                    <form style="width:100%;" action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+                        {% csrf_token %}
+                        <button style="width:100%;" class="btn btn-danger" type="submit" href="{% url 'delete_recipe' id=recipe.id %}">Remove {{ recipe.title }}</button>
+                    </form>
+                    <a class="btn btn-secondary" href="{% url 'create_category' %}">Create a New Category</a>
+                    <a class="btn btn-info" href="{% url 'create_ingredient' id=recipe.id %}">Add an Ingredient</a>
+                </div>
                 <h3>Ingredients Added:</h3>
                 {% for ingredient in ingredients %}
                     <h3>{{ ingredient.name }}</h3>
