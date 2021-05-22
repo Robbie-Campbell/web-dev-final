@@ -9,7 +9,7 @@ urlpatterns = [
     path('recipe/', include('recipe.urls')),
     path('ingredient/', include('ingredient.urls')),
     path('staff/', include('staff.urls')),
-    path('basket/', include('basket.urls')),
+    path('basket/', include('basket.urls', namespace="basket")),
     path('auth/', include('login.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),

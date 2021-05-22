@@ -54,6 +54,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'recipe.context_processors.categories',
+                'basket.context_processors.basket',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
