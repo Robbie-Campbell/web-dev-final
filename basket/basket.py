@@ -8,10 +8,14 @@ class Basket():
             basket = self.session['skey'] = {}
         self.basket = basket
 
-    def add(self, recipe):
+    def add(self, recipe, recipe_qty):
         recipe_id = recipe.id
-
-        if recipe_id not in self.basket:
-            self.basket[recipe_id] = {'price': int(recipe.price)}
+        if recipe_id in self.basket:
+            self.basket[recipe_id]['qty'] = recipe_qty
+        else:
+            self.basket[recipe_id] = {'price': int(recipe.price), 'qty': int(recipe_qty)}
         
         self.session.modified = True
+
+    def __len__(self):
+        return sum(item['qty'] for item in self.basket.values())

@@ -10,7 +10,8 @@ def basket_add(request):
     basket = Basket(request)
     if request.POST.get('action') == 'post':
         recipe_id = int(request.POST.get('recipeid'))
+        recipe_qty = int(request.POST.get('recipeqty'))
         recipe = get_object_or_404(Recipe, id=recipe_id)
-        basket.add(recipe=recipe)
+        basket.add(recipe=recipe, recipe_qty=recipe_qty)
         response = JsonResponse({'test': 'data'})
         return response
