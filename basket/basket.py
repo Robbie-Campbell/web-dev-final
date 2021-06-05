@@ -8,12 +8,12 @@ class Basket():
             basket = self.session['skey'] = {}
         self.basket = basket
 
-    def add(self, recipe, recipe_qty):
+    def add(self, recipe, qty):
         recipe_id = recipe.id
         if recipe_id in self.basket:
-            self.basket[recipe_id]['qty'] = recipe_qty
+            self.basket[recipe_id]['qty'] = qty
         else:
-            self.basket[recipe_id] = {'price': int(recipe.price), 'qty': int(recipe_qty)}
+            self.basket[recipe_id] = {'price': int(recipe.price), 'qty': qty}
         
         self.session.modified = True
 

@@ -9,7 +9,15 @@ body {
     height:100vh;
     min-height:100vh;
     position: relative;
-    background:#DDD;
+    background:#EEE;
+}
+
+.textInput{
+    width:100%;
+}
+
+.wide{
+    width:100%;
 }
 
 .main-container {
@@ -17,7 +25,7 @@ body {
     overflow: hidden;
     display: block;
     position: relative;
-    padding-bottom: 160px;
+    padding-bottom: 180px;
 }
 
 .results{
@@ -55,7 +63,6 @@ footer {
 #description{
     padding-bottom: 5px;
     display: flex;
-    border-bottom: 1px solid #CCC;
     justify-content:space-between;
     align-items: right;
 }

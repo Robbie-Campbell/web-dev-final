@@ -4,19 +4,26 @@
 
 {% block content %}
 <div class="container">
-    <div class="card mt-5">
-        <h1>Category</h1>
+    <div class="card mt-5 shadow-sm p-3">
+        <h1 class="border-bottom">Categories</h1>
         {% for category in categories %}
-            <h4>{{ category.title }}</h4>
-            <a class="btn btn-info" href="{% url 'edit_category' id=category.id %}">Update</a>
-            <a class="btn btn-danger" href="{% url 'delete_category' id=category.id %}">Delete</a>
+            <div style="max-width:50%;"class="border p-4 m-1">
+                <h6>{{ category.title }}</h6>
+                <a class="btn btn-outline-info" href="{% url 'edit_category' id=category.id %}">Update</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete_category' id=category.id %}">Delete</a>
+            </div>
         {% endfor %}
-        <h1>Measurement</h1>
+    </div>
+    <div class="card mt-5 shadow-sm p-3">
+        <h1 class="border-bottom">Measurements</h1>
         {% for measurement in measurements %}
-            <h4>{{ measurement.unit_fullname }}</h4>
-            <a class="btn btn-info" href="{% url 'edit_measurement' id=measurement.id %}">Update</a>
-            <a class="btn btn-danger" href="{% url 'delete_measurement' id=measurement.id %}">Delete</a>
+            <div style="max-width:50%;"class="border p-4 m-1">
+                <h6>{{ measurement.unit_fullname }}</h6>
+                <a class="btn btn-outline-info" href="{% url 'edit_measurement' id=measurement.id %}">Update</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete_measurement' id=measurement.id %}">Delete</a>
+        </div>
         {% endfor %}
+
     </div>
 </div>
 {% endblock content %}
