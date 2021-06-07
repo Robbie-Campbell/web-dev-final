@@ -14,29 +14,27 @@
 <div class="jumbotron">
     <div class="container">
         <div class="background-nice rounded">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <h1 class="display-4">Welcome to Fresher, Food for you.</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, ab. Cum itaque quidem suscipit amet fuga voluptates corporis vero veniam distinctio. Vitae illo dolorem odio perferendis repudiandae ipsa impedit soluta.</p>
             <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
+            <p>It is our pleasure to feed our customers.</p>
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center results rounded shadow-sm p-3">
+<div class="container bg-white">
+    <h1 class="p-3 text-center border-bottom">Our Latest Recipes</h1>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center results shadow-sm p-3">
         {% for recipe in recipes %}
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">{{ recipe.title }}</h4>
+                <div class="card-header pt-3 d-flex flex-wrap align-items-center justify-content-center" style="min-height:100px;">
+                    <h4 class="my-0 fw-normal">{% if recipe.title|length > 30 %}{{ recipe.title|slice:":30" }}...{% else %}{{ recipe.title }}{% endif %}</h4>
                 </div>
                 <img src="{{ recipe.image.url }}" style="height:200px;" class="img-fluid" alt="Responsive image">
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>{{ recipe.description }}</li>
+                        <li>{{ recipe.description|slice:":50" }}</li>
                         <li></li>
                     </ul>
                     <a href="{% url 'recipe_single' id=recipe.id %}" class="w-100 btn btn-lg btn-primary">Read More</a>

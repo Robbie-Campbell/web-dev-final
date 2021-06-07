@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Add a Unit of Measurement{% endblock title %}
+{% block title %}Create Measurement{% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
-<div class="container" style="max-width:50%;">
+<div class="container" >
     <div class="card mt-5 shadow-sm p-3">
-        <form method="POST" class="form-group m-3">
+        <h1 class="border-bottom m-3">Create Measurement</h1>
+        <form method="POST" class="form-group ml-3 mr-3">
             {% csrf_token %}
             {{form|crispy}}
-            <button type="submit"  style="width:100%;"class="btn btn-outline-success">Add Measurement</button>
+            <button type="submit"  style="width:100%;"class="btn btn-outline-success mt-2">Create Measurement</button>
         </form>
     </div>
 </div>

@@ -13,13 +13,13 @@ class Basket():
 
     # Add a recipe to the basket
     def add(self, recipe, qty):
-        recipe_id = recipe.id
+        recipe_id = str(recipe.id)
         if recipe_id in self.basket:
             self.basket[recipe_id]['qty'] = qty
         else:
             self.basket[recipe_id] = {'price': str(recipe.price), 'qty': qty}
         
-        self.session.modified = True
+        self.save()
 
     # Get the number of items in the basket
     def __len__(self):
@@ -39,6 +39,7 @@ class Basket():
             item['total_price'] = Decimal(item['price']) * item['qty']
             yield item
 
+    # Adds all of the prices and quantities together
     def get_total_price(self):
         return sum(Decimal(Decimal(item['price'])) * item['qty'] for item in self.basket.values())
 

@@ -6,10 +6,11 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <div class="card mt-5 shadow-sm">
-        <form method="POST" class="form-group m-3">
+        <h1 class="border-bottom m-3">Create Recipe</h1>
+        <form method="POST" class="form-group ml-3 mr-3">
             {% csrf_token %}
             {{form|crispy}}
-            <button type="submit" class="btn btn-outline-success wide">Create Recipe</button>
+            <button type="submit" class="btn btn-outline-success wide mt-2">Create Recipe</button>
         </form>
     </div>
 </div>

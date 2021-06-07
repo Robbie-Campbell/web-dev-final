@@ -7,8 +7,7 @@ from .models import Ingredient
 from .forms import Ingredient
 
 
-@staff_member_required
-@login_required
+@staff_member_required(login_url="/auth/login/")
 def create_ingredient(request, id):
     recipe = Recipe.objects.get(id=id)
     if request.method == "POST":
@@ -20,10 +19,9 @@ def create_ingredient(request, id):
             return redirect("edit_recipe", id=recipe.id)
     else:
         form = Ingredient()
-    return render(request, "ingredient/create.html", {"recipe":recipe, "form":form})
+    return render(request, "recipe/ingredient/create.html", {"recipe":recipe, "form":form})
 
-@staff_member_required
-@login_required
+@staff_member_required(login_url="/login/")
 def delete_ingredient(request, id):
     ingredient = Ingredient.objects.get(id=id)
     ingredient.delete()

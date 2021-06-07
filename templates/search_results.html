@@ -3,22 +3,41 @@
 {% block title %} Results {% endblock title %}
 
 {% block content %}
-<h1>Search Results</h1>
-
-<ul>
-  {% if recipes %}
-    {% for recipe in recipes %}
-      <li>
-        {{recipe.title}}
-        <a href="{{ recipe.get_absolute_url }}">Read more</a>
-        {% if request.user.is_staff %}
-          <a href="{% url 'edit_recipe' id=recipe.id %}" class="btn btn-success">Update this post?</a>
-          <a href="{% url 'delete_recipe' id=recipe.id %}" class="btn btn-danger">Delete</a>
+  <div class="container">
+      <div class="card mt-5 shadow-sm">
+        {% if recipes %}
+          {% for recipe in recipes %}
+              <div class="d-flex border-bottom">
+                  <div style="max-width:50%;" class="d-flex flex-wrap align-items-center p-2">
+                      <img src="{{ recipe.image.url }}" style="border: 2px solid #333; width:100%; max-width:100%; max-height:300px;" alt="{{ recipe.title }}">
+                  </div>
+                  <div class="card-body m-2">
+                      <div id="description">
+                          <div>
+                              <h5 class="card-title">{{ recipe.title }}</h5>
+                              <h3 class="card-title">£{{ recipe.price }}</h3>
+                              <p class="card-text">{{ recipe.description }}</p>
+                              <div style="width:200px;">
+                                  <a class="btn btn-outline-primary m-1 wide" href="{{ recipe.get_absolute_url }}">Read More?</a>
+                                  {% if request.user.is_staff %}
+                                      <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+                                          {% csrf_token %}
+                                          <button class="btn btn-outline-danger m-1 wide" type="submit">Delete this recipe?</button>
+                                      </form>
+                                      <a class="btn btn-outline-info m-1 wide" href="{% url 'edit_recipe' id=recipe.id %}">Edit this recipe?</a>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+        {% else %}
+          <div class="p-5">
+            <h1>Sorry, No results were found for your search.</h1>
+            <p class="text-muted">Please try searching by author name, recipe title or category.</p>
+          </div>
         {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-      <h1>Sorry no recipes found.</h1>
-  {% endif %}
-{% endblock %}
+      </div>
+  </div>
+{% endblock content %}

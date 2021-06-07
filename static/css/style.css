@@ -28,11 +28,6 @@ body {
     padding-bottom: 180px;
 }
 
-.results{
-    background: #fff;
-    padding:20px;
-}
-
 footer {
     position: absolute;
     bottom: 0;
@@ -50,7 +45,7 @@ footer {
 }
 
 .background-nice{
-    background: #fff;
+    background: #D0F0C0;
     opacity: 90%;
     padding: 30px;
 }

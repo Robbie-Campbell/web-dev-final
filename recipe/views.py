@@ -7,12 +7,13 @@ from .forms import CreateRecipeForm, EditRecipeForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 
 def home(request):
     username = None
-    recipes = Recipe.objects.all()[:3]
+    recipes = Recipe.objects.all()[:6]
     if request.user.is_authenticated:
         username = request.user.username
         return render(request, 'index.html', {"username": username, "recipes": recipes})
@@ -33,7 +34,9 @@ def category(request, id):
 
 def search_results(request):
     query = request.GET.get('q')
-    object_list = Recipe.objects.filter(title__icontains=query).filter(published=True)
+    object_list = Recipe.objects.filter(
+        Q(title__icontains=query) | Q(category__title__icontains=query) | Q(author__username__icontains=query)
+    ).filter(published=True)
     return render(request, 'search_results.html', {"recipes": object_list})
 
 @staff_member_required

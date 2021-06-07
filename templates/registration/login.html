@@ -6,11 +6,21 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <div class="card mt-5 shadow-sm p-3">
-        <form method="POST" class="form-group p-3">
-            {% csrf_token %}
-            {{form|crispy}}
-            <button type="submit" class="btn btn-outline-success wide mt-2">Login</button>
-        </form>
+        {% if not user.is_authenticated %}
+            <h1 class="border-bottom ml-3 mr-3">Login</h1>
+            <form method="POST" class="form-group p-3">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-outline-success wide mt-2">Login</button>
+            </form>
+            <a href="{% url 'register' %}" class="border-top ml-3 mr-3">Or you can register here.</a>
+        {% elif user.is_authenticated and 'next' in request.GET %}
+            <h1 class="border-bottom ml-3 mr-3">You are not authorised to see this page.</h1>
+            <p class="text-muted ml-3 mr-3">Please log in as staff to view this page.</p>
+        {% else %}
+            <h1 class="border-bottom ml-3 mr-3">You are already logged in.</h1>
+            <p class="text-muted ml-3 mr-3">Please log out to log in again</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
