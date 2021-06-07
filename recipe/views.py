@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
+from core import settings
 
 def home(request):
     username = None
@@ -61,6 +62,8 @@ def edit_recipe(request, id):
     if(request.method == "POST"):
         form = EditRecipeForm(request.POST, request.FILES, instance=recipe)
         if(form.is_valid):
+            if not recipe.image.path == os.path.join(settings.MEDIA_ROOT, "default.png"):
+                os.remove(recipe.image.path)
             form.save(commit=False)
             form.instance.published = True
             form.save()

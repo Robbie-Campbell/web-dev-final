@@ -23,24 +23,32 @@
 </div>
 <div class="container bg-white">
     <h1 class="p-3 text-center border-bottom">Our Latest Recipes</h1>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center results shadow-sm p-3">
-        {% for recipe in recipes %}
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm shadow-sm">
-                <div class="card-header pt-3 d-flex flex-wrap align-items-center justify-content-center" style="min-height:100px;">
-                    <h4 class="my-0 fw-normal">{% if recipe.title|length > 30 %}{{ recipe.title|slice:":30" }}...{% else %}{{ recipe.title }}{% endif %}</h4>
-                </div>
-                <img src="{{ recipe.image.url }}" style="height:200px;" class="img-fluid" alt="Responsive image">
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>{{ recipe.description|slice:":50" }}</li>
-                        <li></li>
-                    </ul>
-                    <a href="{% url 'recipe_single' id=recipe.id %}" class="w-100 btn btn-lg btn-primary">Read More</a>
-                </div>
+        {% for category in categories %}
+            <h3>{{ category.title }}</h3>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center results shadow-sm p-3">
+                {% for recipe in recipes %}
+                    {% if loop.index < 3 %}
+                        {% if recipe.category == category %}
+                            <div class="col">
+                                <div class="card mb-4 rounded-3 shadow-sm shadow-sm">
+                                    <div class="card-header pt-3 d-flex flex-wrap align-items-center justify-content-center" style="min-height:100px;">
+                                        <h4 class="my-0 fw-normal">{% if recipe.title|length > 30 %}{{ recipe.title|slice:":30" }}...{% else %}{{ recipe.title }}{% endif %}</h4>
+                                    </div>
+                                    <img src="{{ recipe.image.url }}" style="height:200px;" class="img-fluid" alt="Responsive image">
+                                    <div class="card-body">
+                                        <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <li>{% if recipe.description|length > 30 %}{{ recipe.description|slice:":50" }}...{% else %}{{ recipe.description }}{% endif %}</li>
+                                            <li></li>
+                                        </ul>
+                                        <a href="{% url 'recipe_single' id=recipe.id %}" class="w-100 btn btn-lg btn-primary">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
