@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Recipe
+from .models import Recipe, Category
 from ingredient.models import Ingredient
 import os
 from django.contrib.admin.views.decorators import staff_member_required
@@ -13,12 +13,10 @@ from django.shortcuts import redirect
 from core import settings
 
 def home(request):
-    username = None
-    recipes = Recipe.objects.all()[:6]
-    if request.user.is_authenticated:
-        username = request.user.username
-        return render(request, 'index.html', {"username": username, "recipes": recipes})
-    return render(request, 'index.html', {"recipes":recipes})
+    recipes = []
+    for category in Category.objects.all():
+        recipes += Recipe.objects.filter(category=category)[:3]
+    return render(request, 'navigation/index.html', {"recipes":recipes})
 
 def single(request, id):
     recipe = Recipe.objects.get(id=id)
@@ -38,7 +36,7 @@ def search_results(request):
     object_list = Recipe.objects.filter(
         Q(title__icontains=query) | Q(category__title__icontains=query) | Q(author__username__icontains=query)
     ).filter(published=True)
-    return render(request, 'search_results.html', {"recipes": object_list})
+    return render(request, 'navigation/search_results.html', {"recipes": object_list})
 
 @staff_member_required
 @login_required
@@ -50,7 +48,7 @@ def create_recipe(request):
             form.instance.author = request.user
             task = form.save()
         
-            return redirect("edit_recipe", id=task.id)
+            return redirect("recipe:edit_recipe", id=task.id)
     else:
         form = CreateRecipeForm()
     return render(request, "recipe/create.html", {"form":form})
@@ -67,7 +65,7 @@ def edit_recipe(request, id):
             form.save(commit=False)
             form.instance.published = True
             form.save()
-            return redirect("recipe_single", id=id)
+            return redirect("recipe:recipe_single", id=id)
     else:
         data = {"title": recipe.title, "image": recipe.image, "description": recipe.description, "price": recipe.price, "category": recipe.category}
         form = EditRecipeForm(initial=data)
@@ -80,7 +78,7 @@ def edit_recipe(request, id):
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
-    return redirect('home')
+    return redirect('recipe:home')
 
 @staff_member_required
 def create_category(request):
@@ -91,7 +89,7 @@ def create_category(request):
             form.instance.author = request.user
             task = form.save()
         
-            return redirect("edit_recipe", id=task.id)
+            return redirect("recipe:edit_recipe", id=task.id)
     else:
         form = CreateRecipeForm()
     return render(request, "recipe/create.html", {"form":form})

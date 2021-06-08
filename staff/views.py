@@ -45,7 +45,7 @@ def edit_category(request, id):
         form = CategoryForm(request.POST, instance=category)
         if(form.is_valid):
             form.save()
-            return redirect("edit_cat_measurement")
+            return redirect("staff:edit_cat_measurement")
     else:
         data = {"title": category.title, "description": category.description}
         form = CategoryForm(initial=data)
@@ -59,7 +59,7 @@ def edit_measurement(request, id):
         form = MeasurementForm(request.POST, instance=measurement)
         if(form.is_valid):
             form.save()
-            return redirect("edit_cat_measurement")
+            return redirect("staff:edit_cat_measurement")
     else:
         data = {"unit_shorthand": measurement.unit_shorthand, "unit_fullname": measurement.unit_fullname}
         form = MeasurementForm(initial=data)
@@ -70,13 +70,13 @@ def edit_measurement(request, id):
 def delete_category(request, id):
     category = Category.objects.get(id=id)
     category.delete()
-    return redirect("edit_cat_measurement")
+    return redirect("staff:edit_cat_measurement")
 
 @staff_member_required
 @login_required
 def delete_measurement(request, id):
     measurement = Measurement.objects.get(id=id)
     measurement.delete()
-    return redirect("edit_cat_measurement")
+    return redirect("staff:edit_cat_measurement")
 
 

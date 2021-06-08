@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="jumbotron">
+    <div class="container">
+        <div class="background-nice rounded">
+            <h1 class="display-4">Welcome to Fresher, Food for you.</h1>
+            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, ab. Cum itaque quidem suscipit amet fuga voluptates corporis vero veniam distinctio. Vitae illo dolorem odio perferendis repudiandae ipsa impedit soluta.</p>
+            <hr class="my-4">
+            <p>It is our pleasure to feed our customers.</p>
+        </div>
+    </div>
+</div>
+<div class="container bg-white">
+    <h1 class="p-3 text-center border-bottom">Our Latest Recipes</h1>
+    {% for category in categories %}
+        <h3 class="m-3 text-center">{{ category.title }}</h3>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center results shadow-sm p-3">
+            {% for recipe in recipes %}
+                {% if recipe.category == category %}
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm shadow-sm">
+                            <div class="card-header pt-3 d-flex flex-wrap align-items-center justify-content-center" style="min-height:100px;">
+                                <h4 class="my-0 fw-normal">{% if recipe.title|length > 30 %}{{ recipe.title|slice:":30" }}...{% else %}{{ recipe.title }}{% endif %}</h4>
+                            </div>
+                            <img src="{{ recipe.image.url }}" style="height:200px;" class="img-fluid" alt="Responsive image">
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>{% if recipe.description|length > 100 %}{{ recipe.description|slice:":100" }}...{% else %}{{ recipe.description }}{% endif %}</li>
+                                </ul>
+                                <a href="{% url 'recipe_single' id=recipe.id %}" class="button-bottom btn btn-lg btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

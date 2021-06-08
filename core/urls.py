@@ -6,12 +6,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name="home"),
-    path('recipe/', include('recipe.urls')),
-    path('ingredient/', include('ingredient.urls')),
-    path('staff/', include('staff.urls')),
+    path('recipe/', include('recipe.urls', namespace="recipe")),
+    path('ingredient/', include('ingredient.urls', namespace="ingredients")),
+    path('staff/', include('staff.urls', namespace="staff")),
     path('basket/', include('basket.urls', namespace="basket")),
-    path('auth/', include('login.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
+    path('account/', include('account.urls', namespace="account")),
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG == True:

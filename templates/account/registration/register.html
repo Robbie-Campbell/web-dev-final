@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Create an Account{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-5 shadow-sm p-3">
+		<div class="p-3">
+			<h3>Create Your account</h3>
+			<p class="text-muted border-bottom">You can fill in everything else later.</p>
+			<form method="POST" class="form-group">
+				{% csrf_token %}
+				{{ form|crispy }}
+				<button type="submit" class="btn btn-outline-success wide mt-3">Register</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

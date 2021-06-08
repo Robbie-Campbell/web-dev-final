@@ -58,7 +58,7 @@
                     {% if not request.user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/recipe/list/' %}fw-bold{% endif %}"
-                            href="{% url 'recipe_list' %}">New Recipes</a>
+                            href="{% url 'recipe:recipe_list' %}">New Recipes</a>
                     </li>
                     {% else %}
                     <li class="nav-item dropdown">
@@ -67,35 +67,40 @@
                             Staff Options
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'create_recipe' %}">Create a Recipe</a>
-                            <a class="dropdown-item" href="{% url 'recipe_list' %}">Update a Recipe</a>
-                            <a class="dropdown-item" href="{% url 'create_category' %}">Create a Category</a>
-                            <a class="dropdown-item" href="{% url 'create_measurement' %}">Create a Measurement</a>
-                            <a class="dropdown-item" href="{% url 'edit_cat_measurement' %}">Update Category or
+                            <a class="dropdown-item" href="{% url 'recipe:create_recipe' %}">Create a Recipe</a>
+                            <a class="dropdown-item" href="{% url 'recipe:recipe_list' %}">Update a Recipe</a>
+                            <a class="dropdown-item" href="{% url 'staff:create_category' %}">Create a Category</a>
+                            <a class="dropdown-item" href="{% url 'staff:create_measurement' %}">Create a Measurement</a>
+                            <a class="dropdown-item" href="{% url 'staff:edit_cat_measurement' %}">Update Category or
                                 Measurement</a>
                         </div>
                     </li>
                     {% endif %}
                 </ul>
-                <ul class="navbar-nav">
+                <form class="form-inline my-2 my-lg-0 mr-3" action="{% url 'recipe:search_results' %}" method="get">
+                    {% csrf_token %}
+                    <input name="q" class="form-control mr-sm-2" style="width:280px;"type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav justify-content-end">
                     {% if request.user.is_authenticated  %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'account:dashboard' %}">Your Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link" href="{% url 'account:login' %}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'account:register' %}">Register</a>
                     </li>
                     {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0 flex mr-3" action="{% url 'search_results' %}" method="get">
-                    {% csrf_token %}
-                    <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                 </form>
+            </div>
+            <div class="d-flex">
                 <a type="button" role="button" href="{% url 'basket:basket_summary' %}" class="btn btn-outline-secondary">
                     {% with total_qty=basket|length %}
                         <div id="basket-qty" class="d-inline-flex">

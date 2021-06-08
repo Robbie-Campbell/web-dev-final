@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 /*
     Homepage and navbar styling
 */
 body {
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-weight: 200;
     height: 100vh;
     min-height:100vh;
     position: relative;
@@ -48,6 +48,18 @@ footer {
     background: #D0F0C0;
     opacity: 90%;
     padding: 30px;
+}
+
+.card-body{
+    height: 248px;
+    position: relative;
+}
+
+.button-bottom{
+    position: absolute;
+    bottom:0;
+    left:0;
+    width:100%;
 }
 
 #number_to_add{

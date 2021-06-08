@@ -16,7 +16,7 @@ def create_ingredient(request, id):
             form.save(commit=False)
             form.instance.recipe = Recipe.objects.get(id=id)
             form.save()
-            return redirect("edit_recipe", id=recipe.id)
+            return redirect("ingredient:edit_recipe", id=recipe.id)
     else:
         form = Ingredient()
     return render(request, "recipe/ingredient/create.html", {"recipe":recipe, "form":form})

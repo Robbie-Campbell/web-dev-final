@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login',
+    'account',
     'recipe',
     'staff',
     'ingredient',
@@ -121,9 +121,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "/"
+AUTH_USER_MODEL = 'account.UserBase'
 
-LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = "/account/dashboard/"
+
+LOGIN_URL = "/account/login/"
 
 LOGOUT_REDIRECT_URL = "/"
 
@@ -132,3 +134,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Image storage
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/"
+
+# Test email backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
