@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}reset Status{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-5 shadow-sm">
+        {% if 'email' in request.get_full_path %}
+        <div class="p-5">
+            <h1>Password Reset Success!</h1>
+            <p class="text-muted">Check your email for instructions.</p>
+        </div>
+        {% endif %}
+        {% if 'complete' in request.get_full_path %}
+        <div class="p-5">
+            <h1>Password Reset Success!</h1>
+            <a href="{% url 'account:login' %}">Login</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

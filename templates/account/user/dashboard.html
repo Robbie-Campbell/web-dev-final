@@ -1,18 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="card mt-5 shadow-sm">
-        <div class="m-4 d-flex justify-content-between border-bottom">
-            <div>
-                <h1>Your dashboard</h1>
-                <p class="text-muted">Manage your recipe order and details</p>
-            </div>
-            <div class="d-flex align-items-end flex-column p-3">
-                <a class="mt-auto" href="#">Change your details</a>
-            </div>
+    <div class="card mt-5 p-4 shadow-sm">
+        <h1>Your Dashboard</h1>
+        <div class="d-flex justify-content-between border-bottom">
+            <p class="text-muted">Manage your recipe orders and details</p>
+            <a href="{% url 'account:edit_profile' %}">Change your details</a>
         </div>
     </div>
 </div>
