@@ -38,7 +38,7 @@
                                 <ul class="list-unstyled mt-3 mb-4">
                                     <li>{% if recipe.description|length > 100 %}{{ recipe.description|slice:":100" }}...{% else %}{{ recipe.description }}{% endif %}</li>
                                 </ul>
-                                <a href="{% url 'recipe_single' id=recipe.id %}" class="button-bottom btn btn-lg btn-primary">Read More</a>
+                                <a href="{% url 'recipe:recipe_single' id=recipe.id %}" class="button-bottom btn btn-lg btn-primary">Read More</a>
                             </div>
                         </div>
                     </div>

@@ -6,8 +6,10 @@
     {% load crispy_forms_tags %}
     {% if form.is_valid %}
         <div class="alert alert-success">
-            <h2>Your details have been updated!</h2>
-            <a href="{% url 'account:dashboard' %}">Go back to your dashboard.</a>
+            <div class="container">
+                <h2>Your details have been updated!</h2>
+                <a href="{% url 'account:dashboard' %}">Go back to your dashboard.</a>
+            </div>
         </div>
     {% endif %}
     {% if form.errors %}

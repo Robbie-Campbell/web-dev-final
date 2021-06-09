@@ -11,7 +11,7 @@
             {{form|crispy}}
             <button type="submit"  style="width:100%;"class="btn btn-outline-success">Update Category</button>
         </form>
-        <a class="btn btn-outline-danger" style="width:100%;" href="{% url 'delete_category' id=category.id %}">Delete this Category</a>
+        <a class="btn btn-outline-danger" style="width:100%;" href="{% url 'staff:delete_category' id=category.id %}">Delete this Category</a>
     </div>
 </div>
 {% endblock content %}

@@ -9,7 +9,7 @@ app_name = "account"
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='account/login/login.html',
                                                 form_class=UserLoginForm), name='login'),
-                        
+
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name="register"),
     path('register/success/', TemplateView.as_view(template_name='account/registration/register_success.html'), name='register_success'),
@@ -25,6 +25,7 @@ urlpatterns = [
                                                                                                 success_url='/account/password_reset_complete/',
                                                                                                 form_class=PwdResetConfirmForm),
                                                                                                 name="password_reset_confirm"),
+
     path('password_reset/password_reset_email_confirm/',
          TemplateView.as_view(template_name="account/user/reset_status.html"), name='password_reset_done'),
 

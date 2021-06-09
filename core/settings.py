@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'staff',
     'ingredient',
     'basket',
+    'payment',
+    'orders',
     'crispy_forms',
 ]
 

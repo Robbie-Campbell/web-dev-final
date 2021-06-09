@@ -4,14 +4,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Ingredient
-from .forms import Ingredient
+from .forms import IngredientForm
 
 
 @staff_member_required(login_url="/auth/login/")
 def create_ingredient(request, id):
     recipe = Recipe.objects.get(id=id)
     if request.method == "POST":
-        form = Ingredient(request.POST)
+        form = IngredientForm(request.POST)
         if form.is_valid():
             form.save(commit=False)
             form.instance.recipe = Recipe.objects.get(id=id)

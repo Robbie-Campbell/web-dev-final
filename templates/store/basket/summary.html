@@ -59,50 +59,53 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 text-end d-flex flex-column align-items-end justify-content-end pt-2">
+                <a href="{% url 'payment:payment_home' %}" class="btn btn-success">Checkout</a>
+            </div>
         </div>
     </div>
 </main>
 <script>
     // Delete Item
     $(document).on('click', '.delete-button', function (e) {
-      e.preventDefault();
-      var prodid = $(this).data('index');
-      $.ajax({
-        type: 'POST',
-        url: '{% url "basket:basket_delete" %}',
-        data: {
-          recipeid: $(this).data('index'),
-          csrfmiddlewaretoken: "{{csrf_token}}",
-          action: 'post'
-        },
-        success: function (json) {
-          $('.recipe-item[data-index="' + prodid + '"]').remove();
-          document.getElementById("subtotal").innerHTML = json.subtotal;
-          document.getElementById("basket-qty").innerHTML = json.qty
-        },
-        error: function (xhr, errmsg, err) {}
-      });
+        e.preventDefault();
+        var prodid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "basket:basket_delete" %}',
+            data: {
+                recipeid: $(this).data('index'),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
+            success: function (json) {
+                $('.recipe-item[data-index="' + prodid + '"]').remove();
+                document.getElementById("subtotal").innerHTML = json.subtotal;
+                document.getElementById("basket-qty").innerHTML = json.qty
+            },
+            error: function (xhr, errmsg, err) {}
+        });
     })
-  
+
     // Update Item
     $(document).on('click', '.update-button', function (e) {
-      e.preventDefault();
-      var prodid = $(this).data('index');
-      $.ajax({
-        type: 'POST',
-        url: '{% url "basket:basket_update" %}',
-        data: {
-          recipeid: $(this).data('index'),
-          recipeqty: $('#select' + prodid + ' option:selected').text(),
-          csrfmiddlewaretoken: "{{csrf_token}}",
-          action: 'post'
-        },
-        success: function (json) {
-          document.getElementById("basket-qty").innerHTML = json.qty
-          document.getElementById("subtotal").innerHTML = json.subtotal
-        },
-        error: function (xhr, errmsg, err) {}
-      });
+        e.preventDefault();
+        var prodid = $(this).data('index');
+        $.ajax({
+            type: 'POST',
+            url: '{% url "basket:basket_update" %}',
+            data: {
+                recipeid: $(this).data('index'),
+                recipeqty: $('#select' + prodid + ' option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+            },
+            success: function (json) {
+                document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("subtotal").innerHTML = json.subtotal
+            },
+            error: function (xhr, errmsg, err) {}
+        });
     })
-  </script>
+</script>
 {% endblock content %}

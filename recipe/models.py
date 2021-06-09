@@ -13,7 +13,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('category', args=[self.id])
+        return reverse('recipe:category', args=[self.id])
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
@@ -29,7 +29,7 @@ class Recipe(models.Model):
         return u'<img src="%s" />' % self.image.url
     
     def get_absolute_url(self):
-        return reverse('recipe_single', args=[self.id])
+        return reverse('recipe:recipe_single', args=[self.id])
 
     def __str__(self):
         return self.title

@@ -37,7 +37,7 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email_address'), unique=True)
     username = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=100, blank=True)
-    last_name_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
     country = CountryField()
     phone_number = models.CharField(max_length=15, blank=True)
     postcode = models.CharField(max_length=12, blank=True)

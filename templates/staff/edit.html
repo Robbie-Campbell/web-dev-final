@@ -9,8 +9,8 @@
         {% for category in categories %}
             <div style="max-width:50%;"class="border p-4 m-1">
                 <h6>{{ category.title }}</h6>
-                <a class="btn btn-outline-info" href="{% url 'edit_category' id=category.id %}">Update</a>
-                <a class="btn btn-outline-danger" href="{% url 'delete_category' id=category.id %}">Delete</a>
+                <a class="btn btn-outline-info" href="{% url 'staff:edit_category' id=category.id %}">Update</a>
+                <a class="btn btn-outline-danger" href="{% url 'staff:delete_category' id=category.id %}">Delete</a>
             </div>
         {% endfor %}
     </div>
@@ -19,8 +19,8 @@
         {% for measurement in measurements %}
             <div style="max-width:50%;"class="border p-4 m-1">
                 <h6>{{ measurement.unit_fullname }}</h6>
-                <a class="btn btn-outline-info" href="{% url 'edit_measurement' id=measurement.id %}">Update</a>
-                <a class="btn btn-outline-danger" href="{% url 'delete_measurement' id=measurement.id %}">Delete</a>
+                <a class="btn btn-outline-info" href="{% url 'staff:edit_measurement' id=measurement.id %}">Update</a>
+                <a class="btn btn-outline-danger" href="{% url 'staff:delete_measurement' id=measurement.id %}">Delete</a>
         </div>
         {% endfor %}
 

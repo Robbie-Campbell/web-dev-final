@@ -46,11 +46,11 @@
             </div>
         </div>
         {% if request.user.is_staff %}
-            <form action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
+            <form action="{% url 'recipe:delete_recipe' id=recipe.id %}" method="delete">
                 {% csrf_token %}
                 <button class="btn btn-outline-danger wide" type="submit">Delete this recipe?</button>
             </form>
-            <a class="btn btn-outline-info" href="{% url 'edit_recipe' id=recipe.id %}">Edit this recipe?</a>
+            <a class="btn btn-outline-info" href="{% url 'recipe:edit_recipe' id=recipe.id %}">Edit this recipe?</a>
         {% endif %}
     </div>
 </div>
