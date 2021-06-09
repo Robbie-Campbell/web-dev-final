@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-62mlyye+=z+5&$^pey3id_#gwvt)*17m6fj6608-=zl^wl6xcc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -55,12 +55,12 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'recipe.context_processors.categories',
-                'basket.context_processors.basket',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'recipe.context_processors.categories',
+                'basket.context_processors.basket',
             ],
         },
     },
@@ -139,3 +139,7 @@ MEDIA_URL = "/"
 
 # Test email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+PUBLISHABLE_KEY = 'pk_test_51J0N5bBduLhIpeffssqgXweMsI5rVa3bRwRHbNtehgFlOrZHr7ZjYGiAtC6S5DTTln9FokqHnKdyv9pZxQbU8vjL00C6EtsPbo'
+SECRET_KEY = 'sk_test_51J0N5bBduLhIpeffiM2F2b3fAeLcX3fhcqny7g7lCbYPYCzohjhFDraawgwlTUwbmXDt2ulIxYNUurfKkRxdCZQE00Cghnqjnc'
+STRIPE_ENDPOINT_SECRET = 'whsec_W3LnoQHRzYiu4izgffrn2WNiuyMEdmvx'

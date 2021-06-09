@@ -1,5 +1,6 @@
 from recipe.models import Recipe
 from decimal import Decimal
+from core import settings
 
 class Basket():
 
@@ -58,3 +59,7 @@ class Basket():
 
     def save(self):
         self.session.modified = True
+    
+    def clear(self):
+        del self.session['skey']
+        self.save()

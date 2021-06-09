@@ -1,0 +1,8 @@
+{% autoescape off %}
+    Hello {{ user.username }}!
+
+    Your order has been placed! You can edit your orders in your dashboard Here:
+
+    http://{{ domain }}{% url 'account:dashboard' %}
+
+{% endautoescape %}

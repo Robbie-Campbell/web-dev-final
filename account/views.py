@@ -9,10 +9,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import UserBase
+from orders.views import user_orders
 
 @login_required
 def dashboard(request):
-    return render(request, 'account/user/dashboard.html', {'section': 'profile'})
+    orders = user_orders(request)
+    return render(request, 'account/user/dashboard.html', {'orders': orders})
 
 @login_required
 def edit_profile(request):
