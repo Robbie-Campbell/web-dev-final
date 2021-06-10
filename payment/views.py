@@ -8,12 +8,10 @@ from account.models import UserBase
 from orders.views import payment_confirmation
 import stripe
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text
 from django.contrib.sites.shortcuts import get_current_site
-
-
 from basket.basket import Basket
 from django.http.response import HttpResponse
+
 
 @login_required
 def payment_home(request):
@@ -31,7 +29,7 @@ def payment_home(request):
         currency='gbp',
         metadata={'userid': request.user.id}
     )
-    data ={'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email, 
+    data = {'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email,
             'address_line_1': user.address_line_1, 'postcode': user.postcode,
             'town_city': user.town_city, 'country': user.country}
 
@@ -44,6 +42,7 @@ def payment_home(request):
     else:
         form = PaymentForm()
     return render(request, 'payment/home.html', {'form': form, 'client_secret': intent.client_secret, 'use_data': use_data})
+
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -67,6 +66,7 @@ def stripe_webhook(request):
         print('Unhandled event type {}'.format(event.type))
 
     return HttpResponse(status=200)
+
 
 def order_placed(request):
     basket = Basket(request)

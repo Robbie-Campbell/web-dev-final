@@ -1,6 +1,6 @@
 from recipe.models import Recipe
 from decimal import Decimal
-from core import settings
+
 
 class Basket():
 
@@ -19,7 +19,7 @@ class Basket():
             self.basket[recipe_id]['qty'] = qty
         else:
             self.basket[recipe_id] = {'price': str(recipe.price), 'qty': qty}
-        
+
         self.save()
 
     # Get the number of items in the basket
@@ -59,7 +59,7 @@ class Basket():
 
     def save(self):
         self.session.modified = True
-    
+
     def clear(self):
         del self.session['skey']
         self.save()

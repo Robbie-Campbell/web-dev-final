@@ -1,7 +1,6 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from recipe.models import Recipe
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Ingredient
 from .forms import IngredientForm
@@ -19,7 +18,8 @@ def create_ingredient(request, id):
             return redirect("ingredient:edit_recipe", id=recipe.id)
     else:
         form = Ingredient()
-    return render(request, "recipe/ingredient/create.html", {"recipe":recipe, "form":form})
+    return render(request, "recipe/ingredient/create.html", {"recipe": recipe, "form": form})
+
 
 @staff_member_required(login_url="/login/")
 def delete_ingredient(request, id):

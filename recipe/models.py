@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+
 class Category(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100)
@@ -15,6 +16,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('recipe:category', args=[self.id])
 
+
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="meals/", default="default.png")
@@ -25,9 +27,6 @@ class Recipe(models.Model):
     published = models.BooleanField(default=False)
     method = models.TextField(default="blah blah blah")
 
-    def image_tag(self):
-        return u'<img src="%s" />' % self.image.url
-    
     def get_absolute_url(self):
         return reverse('recipe:recipe_single', args=[self.id])
 

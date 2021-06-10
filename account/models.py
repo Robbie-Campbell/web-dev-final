@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django_countries.fields import CountryField
 from django.utils.translation import gettext_lazy as _
 
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, username, password, **other_fields):
@@ -29,7 +30,6 @@ class CustomAccountManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-        
 
 
 class UserBase(AbstractBaseUser, PermissionsMixin):
@@ -57,7 +57,7 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Accounts"
         verbose_name_plural = "Accounts"
-    
+
     def email_user(self, subject, message):
         send_mail(
             subject,

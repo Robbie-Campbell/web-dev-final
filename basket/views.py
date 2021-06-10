@@ -3,9 +3,11 @@ from .basket import Basket
 from recipe.models import Recipe
 from django.http import JsonResponse
 
+
 def basket_summary(request):
     basket = Basket(request)
     return render(request, 'store/basket/summary.html', {"basket": basket})
+
 
 def basket_add(request):
     basket = Basket(request)
@@ -17,6 +19,7 @@ def basket_add(request):
         basketqty = basket.__len__()
         response = JsonResponse({'qty': basketqty})
         return response
+
 
 def basket_delete(request):
     basket = Basket(request)

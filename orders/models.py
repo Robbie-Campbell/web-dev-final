@@ -1,8 +1,8 @@
-from decimal import Decimal
 from django.conf import settings
 from django.db import models
 
 from recipe.models import Recipe
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='order_user')
@@ -20,9 +20,10 @@ class Order(models.Model):
 
     class Meta:
         ordering = ('-created',)
-    
+
     def __str__(self):
         return str(self.created)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from django import forms
-from recipe.models import Recipe, Category
+from recipe.models import Category
 from ingredient.models import Measurement
+
 
 class CategoryForm(ModelForm):
     class Meta:
@@ -12,6 +12,7 @@ class CategoryForm(ModelForm):
         super(CategoryForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
 
 class MeasurementForm(ModelForm):
     class Meta:

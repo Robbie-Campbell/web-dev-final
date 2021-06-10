@@ -15,5 +15,5 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace="orders")),
     path('admin/', admin.site.urls),
 ]
-if settings.DEBUG == True:
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

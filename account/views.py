@@ -7,14 +7,15 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from .token import account_activation_token
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from .models import UserBase
 from orders.views import user_orders
+
 
 @login_required
 def dashboard(request):
     orders = user_orders(request)
     return render(request, 'account/user/dashboard.html', {'orders': orders})
+
 
 @login_required
 def edit_profile(request):
@@ -26,6 +27,7 @@ def edit_profile(request):
         user_form = UserEditForm(instance=request.user)
     return render(request, 'account/user/edit_profile.html', {'form': user_form})
 
+
 @login_required
 def delete_profile(request):
     user = UserBase.objects.get(username=request.user)
@@ -33,6 +35,7 @@ def delete_profile(request):
     user.save()
     logout(request)
     return redirect('account:delete_confirm')
+
 
 def register(request):
     if request.user.is_authenticated:
@@ -59,6 +62,7 @@ def register(request):
     else:
         registerForm = RegistrationForm()
     return render(request, 'account/registration/register.html', {'form': registerForm})
+
 
 def account_activate(request, uidb64, token):
     try:
