@@ -80,19 +80,4 @@ def edit_recipe(request, id):
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
-    return redirect('recipe:home')
-
-
-@staff_member_required
-def create_category(request):
-    if request.method == "POST":
-        form = CreateRecipeForm(request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.author = request.user
-            task = form.save()
-
-            return redirect("recipe:edit_recipe", id=task.id)
-    else:
-        form = CreateRecipeForm()
-    return render(request, "recipe/create.html", {"form": form})
+    return redirect('home')

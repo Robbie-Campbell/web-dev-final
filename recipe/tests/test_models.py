@@ -12,17 +12,11 @@ class TestCategoriesModel(TestCase):
         self.data1 = Category.objects.create(title='django')
 
     def test_category_model_entry(self):
-        """
-        Test Category model data insertion/types/field attributes
-        """
         data = self.data1
         self.assertTrue(isinstance(data, Category))
         self.assertEqual(str(data), 'django')
 
     def test_category_url(self):
-        """
-        Test category model slug and URL reverse
-        """
         data = self.data1
         response = self.client.post(
             reverse('recipe:category', args=[1]))
@@ -37,17 +31,11 @@ class TestrecipesModel(TestCase):
                                            price='20.00', image='django')
 
     def test_recipes_model_entry(self):
-        """
-        Test recipe model data insertion/types/field attributes
-        """
         data = self.data1
         self.assertTrue(isinstance(data, Recipe))
         self.assertEqual(str(data), 'django beginners')
 
     def test_recipes_url(self):
-        """
-        Test recipe model slug and URL reverse
-        """
         data = self.data1
         url = reverse('recipe:recipe_single', args=[1])
         self.assertEqual(url, '/recipe/1/')
