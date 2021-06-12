@@ -22,7 +22,7 @@ def payment_home(request):
     total = total.replace('.', '')
     total = int(total)
 
-    stripe.api_key = 'sk_test_51J0N5bBduLhIpeffiM2F2b3fAeLcX3fhcqny7g7lCbYPYCzohjhFDraawgwlTUwbmXDt2ulIxYNUurfKkRxdCZQE00Cghnqjnc'
+    stripe.api_key = ''
 
     intent = stripe.PaymentIntent.create(
         amount=total,
