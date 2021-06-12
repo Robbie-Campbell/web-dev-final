@@ -6,7 +6,7 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -32,7 +32,7 @@
                             <div class="card-header pt-3 d-flex flex-wrap align-items-center justify-content-center" style="min-height:100px;">
                                 <h4 class="my-0 fw-normal">{% if recipe.title|length > 30 %}{{ recipe.title|slice:":30" }}...{% else %}{{ recipe.title }}{% endif %}</h4>
                             </div>
-                            <img src="{{ recipe.image.url }}" style="height:200px;" class="img-fluid" alt="Responsive image">
+                            <img src="{{ recipe.image.url }}" style="height:300px;" class="img-fluid" alt="Responsive image">
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">£{{ recipe.price }}</h1>
                                 <ul class="list-unstyled mt-3 mb-4">

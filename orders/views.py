@@ -4,7 +4,6 @@ from basket.basket import Basket
 from .models import Order, OrderItem
 from payment.forms import PaymentForm
 
-
 def add(request):
     basket = Basket(request)
     if request.method == "POST":

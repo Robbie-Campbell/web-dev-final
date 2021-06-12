@@ -140,6 +140,6 @@ MEDIA_URL = "/"
 # Test email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-PUBLISHABLE_KEY = 'pk_test_51J0N5bBduLhIpeffssqgXweMsI5rVa3bRwRHbNtehgFlOrZHr7ZjYGiAtC6S5DTTln9FokqHnKdyv9pZxQbU8vjL00C6EtsPbo'
-SECRET_KEY = 'sk_test_51J0N5bBduLhIpeffiM2F2b3fAeLcX3fhcqny7g7lCbYPYCzohjhFDraawgwlTUwbmXDt2ulIxYNUurfKkRxdCZQE00Cghnqjnc'
-STRIPE_ENDPOINT_SECRET = 'whsec_W3LnoQHRzYiu4izgffrn2WNiuyMEdmvx'
+PUBLISHABLE_KEY = ''
+SECRET_KEY = ''
+STRIPE_ENDPOINT_SECRET = ''

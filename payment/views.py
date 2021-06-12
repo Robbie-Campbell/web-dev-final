@@ -67,7 +67,7 @@ def stripe_webhook(request):
 
     return HttpResponse(status=200)
 
-
+@login_required
 def order_placed(request):
     basket = Basket(request)
     basket.clear()
