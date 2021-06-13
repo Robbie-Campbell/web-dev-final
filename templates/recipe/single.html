@@ -9,15 +9,17 @@
         <div>
             <h5 class="card-header">{{ recipe.category }}</h5>
         </div>
-        <div id="recipe" class="d-flex">
-            <div style="max-width:50%;  min-width:40%;" >
-                <img src="{{ recipe.image.url }}" style="border: 2px solid #333; max-width:100%; max-height:500px;" alt="{{ recipe.title }}">
+        <div class="d-flex recipe">
+            <div style="max-width:50%;  min-width:40%;">
+                <img src="{{ recipe.image.url }}" style="border: 2px solid #333; max-width:100%; max-height:500px;"
+                    alt="{{ recipe.title }}">
                 <div style="border-bottom: 1px solid #CCC;" class="m-2">
                     <h5 class="card-title">Necessary Ingredients:</h5>
                 </div>
                 <ul>
                     {% for ingredient in ingredients %}
-                        <li>{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }} of {{ ingredient.name }}</li>
+                    <li>{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }} of
+                        {{ ingredient.name }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -34,9 +36,12 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <button id="add_to_basket"  value="{{ recipe.id }}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg></button>
+                        <button id="add_to_basket" value="{{ recipe.id }}" class="btn btn-primary"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-cart" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg></button>
                     </div>
                 </div>
                 <p class="card-text">{{ recipe.description }}</p>
@@ -47,34 +52,34 @@
             </div>
         </div>
         {% if request.user.is_staff %}
-            <form action="{% url 'recipe:delete_recipe' id=recipe.id %}" method="delete">
-                {% csrf_token %}
-                <button class="btn btn-outline-danger wide" type="submit">Delete this recipe?</button>
-            </form>
-            <a class="btn btn-outline-info" href="{% url 'recipe:edit_recipe' id=recipe.id %}">Edit this recipe?</a>
+        <form action="{% url 'recipe:delete_recipe' id=recipe.id %}" method="delete">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger wide" type="submit">Delete this recipe?</button>
+        </form>
+        <a class="btn btn-outline-info" href="{% url 'recipe:edit_recipe' id=recipe.id %}">Edit this recipe?</a>
         {% endif %}
     </div>
 </div>
-    <script>
-    $(document).on('click', '#add_to_basket', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '{% url "basket:basket_add" %}',
-                data: {
-                    recipeid: $('#add_to_basket').val(),
-                    recipeqty: $('#select option:selected').text(),
-                    csrfmiddlewaretoken: "{{ csrf_token }}",
-                    action: 'post'
-                },
-                success: function (json){
-                    document.getElementById("basket-qty").innerHTML = json.qty;
-                },
-                error: function (xhr, errmsg, err) {
+<script>
+    $(document).on('click', '#add_to_basket', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "basket:basket_add" %}',
+            data: {
+                recipeid: $('#add_to_basket').val(),
+                recipeqty: $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                action: 'post'
+            },
+            success: function (json) {
+                document.getElementById("basket-qty").innerHTML = json.qty;
+            },
+            error: function (xhr, errmsg, err) {
 
-                }
-            });
+            }
         });
-    </script>
-    <script src="{% static 'js/app.js' %}"></script>
+    });
+</script>
+<script src="{% static 'js/app.js' %}"></script>
 {% endblock content %}

@@ -10,7 +10,7 @@ class TestBasketView(TestCase):
         self.client = Client()
         user = UserBase.objects.create(username='admin', email='test@email.com', password='test')
         password = "testpass"
-        admin = UserBase.objects.create_superuser("tester", "myemail@test.com", password)
+        UserBase.objects.create_superuser("tester", "myemail@test.com", password)
         Category.objects.create(title='test', description='test')
         Recipe.objects.create(category_id=1, title='pasta', author=user, price='20.00', image='default.jpg')
         Recipe.objects.create(category_id=1, title='beans', author=user, price='20.00', image='default.jpg')

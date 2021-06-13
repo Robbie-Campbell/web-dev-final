@@ -13,7 +13,8 @@
         </form>
         <form action="{% url 'staff:delete_measurement' id=measurement.id %}" method="delete">
             {% csrf_token %}
-            <button type="submit"  style="width:100%;" class="btn btn-outline-danger ml-3 mr-3" >Delete this Measurement</button>
+            <button type="submit" style="width:100%;" class="btn btn-outline-danger ml-3 mr-3">Delete this
+                Measurement</button>
         </form>
     </div>
 </div>

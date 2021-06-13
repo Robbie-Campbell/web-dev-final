@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from .models import UserBase
 from orders.views import user_orders
 
+# Super User Account: email: admin@email.com password: admin
+# Customer Account: email: customer@email.com password: testerpass
 
 @login_required
 def dashboard(request):

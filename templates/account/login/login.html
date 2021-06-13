@@ -7,30 +7,32 @@
 <div class="container" style="width:60%">
     <div class="card mt-5 shadow-sm p-4">
         {% if not user.is_authenticated %}
-            <h1 class="border-bottom">Login</h1>
-            <form method="POST" class="form-group">
-                {% if form.errors %}
-                    <div class="alert alert-primary" role="alert">
-                        Error: Username or Password not correct!
-                    </div>
-                {% endif %}
-                {% csrf_token %}
+        <h1 class="border-bottom">Login</h1>
+        <form method="POST" class="form-group">
+            {% if form.errors %}
+            <div class="alert alert-primary" role="alert">
+                Error: Username or Password not correct!
+            </div>
+            {% endif %}
+            {% csrf_token %}
 
-                <label class="form-label">{{ form.username.label}}</label>
-                {{ form.username}}
+            <label class="form-label">{{ form.username.label}}</label>
+            {{ form.username}}
 
-                <label class="form-label">{{ form.password.label}}</label>
-                {{ form.password}}
-                <button type="submit" class="btn btn-outline-success wide mt-2">Login</button>
-            </form>
-            <a href="{% url 'account:register' %}" class="border-top">Or you can register here.</a>
-            <a href="{% url 'account:pwdreset' %}" class="border-top">Reset Password.</a>
+            <label class="form-label">{{ form.password.label}}</label>
+            {{ form.password}}
+            <button type="submit" class="btn btn-outline-success wide mt-2">Login</button>
+        </form>
+        <hr />
+        <a href="{% url 'account:register' %}">Or you can register here.</a>
+        <hr />
+        <a href="{% url 'account:pwdreset' %}">Forgotten Your Password?</a>
         {% elif user.is_authenticated and 'next' in request.GET %}
-            <h1 class="border-bottom">You are not authorised to see this page.</h1>
-            <p class="text-muted">Please log in as staff to view this page.</p>
+        <h1 class="border-bottom">You are not authorised to see this page.</h1>
+        <p class="text-muted">Please log in as staff to view this page.</p>
         {% else %}
-            <h1 class="border-bottom">You are already logged in.</h1>
-            <p class="text-muted">Please log out to log in again</p>
+        <h1 class="border-bottom">You are already logged in.</h1>
+        <p class="text-muted">Please log out to log in again</p>
         {% endif %}
     </div>
 </div>

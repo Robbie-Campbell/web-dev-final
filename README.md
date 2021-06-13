@@ -1,6 +1,5 @@
-# web-dev-final
-:sparkles: one of the final 2 assignments :sparkles:
+superuser email: admin@email.com 
+superuser pass: admin
 
-Features:
-Login system
-Add to Basket 
+client email: person@email.com
+client pass: randompass

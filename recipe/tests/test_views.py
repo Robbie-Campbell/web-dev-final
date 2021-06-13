@@ -1,10 +1,6 @@
-from importlib import import_module
-
-from django.conf import settings
-from django.http import HttpRequest
-from django.test import Client, SimpleTestCase, TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
-from recipe.forms import CreateRecipeForm, EditRecipeForm
+from recipe.forms import CreateRecipeForm
 
 from recipe.models import Category, Recipe
 from account.models import UserBase
@@ -18,7 +14,8 @@ class TestRecipeViews(TestCase):
         admin = UserBase.objects.create_superuser("tester", "myemail@test.com", password)
         self.client.login(email=admin.email, password=password)
         self.category = Category.objects.create(title='django')
-        self.recipe = Recipe.objects.create(id=1, category=self.category, title='django beginners', description="lorem", author=user, published=False, price='20.00', image='default.png', method="lorem")
+        self.recipe = Recipe.objects.create(id=1, category=self.category, title='django beginners', description="lorem",
+                                            author=user, published=False, price='20.00', image='default.png', method="lorem")
 
     def test_url_allowed_hosts(self):
         response = self.client.get('/', HTTP_HOST='test.com')
@@ -56,14 +53,14 @@ class TestRecipeViews(TestCase):
         self.assertEqual(Recipe.objects.first().id, 1)
 
     def test_recipe_edit_form(self):
-        form = CreateRecipeForm(data={"title": self.recipe.title, "image":self.recipe.image, "description": self.recipe.description, "price": self.recipe.price, "category": self.recipe.category})
+        form = CreateRecipeForm(data={"title": self.recipe.title, "image": self.recipe.image, "description": self.recipe.description, "price": self.recipe.price, "category": self.recipe.category})
         self.assertTrue(form.is_valid())
 
     def test_recipe_edit_get(self):
         self.client.post(reverse('recipe:create_recipe'), data=self.recipe.__dict__)
         response = self.client.get(reverse('recipe:edit_recipe', args=[self.recipe.id]))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_recipe_delete(self):
         self.client.post(reverse('recipe:create_recipe'), data=self.recipe.__dict__)
         response = self.client.post(reverse('recipe:delete_recipe', args=[self.recipe.id]))

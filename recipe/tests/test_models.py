@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
@@ -17,9 +16,7 @@ class TestCategoriesModel(TestCase):
         self.assertEqual(str(data), 'django')
 
     def test_category_url(self):
-        data = self.data1
-        response = self.client.post(
-            reverse('recipe:category', args=[1]))
+        response = self.client.post(reverse('recipe:category', args=[1]))
         self.assertEqual(response.status_code, 200)
 
 
@@ -36,9 +33,7 @@ class TestrecipesModel(TestCase):
         self.assertEqual(str(data), 'django beginners')
 
     def test_recipes_url(self):
-        data = self.data1
         url = reverse('recipe:recipe_single', args=[1])
         self.assertEqual(url, '/recipe/1/')
-        response = self.client.post(
-            reverse('recipe:recipe_single', args=[1]))
+        response = self.client.post(reverse('recipe:recipe_single', args=[1]))
         self.assertEqual(response.status_code, 200)

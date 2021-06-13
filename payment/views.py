@@ -36,7 +36,7 @@ def payment_home(request):
     nones = all(data.values())
     if nones:
         use_data = True
-    if request.method == 'GET':
+    if 'populate' in request.GET:
         use_data = False
         form = PaymentForm(data=data)
     else:

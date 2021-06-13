@@ -6,44 +6,50 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-    <div class="container">
-        <div class="card mt-5 shadow-sm">
-            <div>
-                <h5 class="card-header">Editing: {{ recipe.title }}</h5>
-            </div>
-            <div id="recipe" class="d-flex flex-direction-row main-content">
-                <div style="max-width:50%; min-width:40%;" class="p-2">
-                    <img src="{{ recipe.image.url }}" style="border: 1px solid #333; max-width:100%;  max-height:500px;" alt="{{ recipe.title }}">
-                    <a class="btn btn-outline-primary rounded wide mt-2" href="{% url 'ingredient:create_ingredient' id=recipe.id %}">Add an Ingredient</a>
-                    <h5 class="p-2">Ingredients Added:</h5>
-                    {% for ingredient in ingredients %}
-                        <div class=" mt-2 p-2 border-top border-bottom">
-                            <p>{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }} of {{ ingredient.name }} from From: {{ ingredient.country_of_origin }}</p>
-                            <form class="wide"  action="{% url 'delete_recipe' id=recipe.id %}" method="delete">
-                                {% csrf_token %}
-                                <button class="btn btn-outline-danger wide" type="submit" href="{% url 'ingredient:delete_ingredient' id=ingredient.id %}">Delete {{ ingredient.name }}</button>
-                            </form>
-                        </div>
-                    {% endfor %}
-                </div>
-                {% load crispy_forms_tags %}
-                <div class="p-3">
-                    <form method="POST" class="form-group" class="wide"  enctype="multipart/form-data">
+<div class="container">
+    <div class="card mt-5 shadow-sm">
+        <div>
+            <h5 class="card-header">Editing: {{ recipe.title }}</h5>
+        </div>
+        <div class="d-flex flex-direction-row main-content recipe">
+            <div style="max-width:50%; min-width:40%;" class="p-2">
+                <img src="{{ recipe.image.url }}" style="border: 1px solid #333; max-width:100%;  max-height:500px;"
+                    alt="{{ recipe.title }}">
+                <a class="btn btn-outline-primary rounded wide mt-2"
+                    href="{% url 'ingredient:create_ingredient' id=recipe.id %}">Add an Ingredient</a>
+                <h5 class="p-2">Ingredients Added:</h5>
+                {% for ingredient in ingredients %}
+                <div class=" mt-2 p-2 border-top border-bottom">
+                    <p>{{ ingredient.weight }}{{ ingredient.unit_of_measurement.unit_shorthand }} of
+                        {{ ingredient.name }} from From: {{ ingredient.country_of_origin }}</p>
+                    <form class="wide" action="{% url 'ingredient:delete_ingredient' id=ingredient.id %}"
+                        method="delete">
                         {% csrf_token %}
-                        {{form|crispy}}
-                        <div class="btn-group-vertical" style="width:70%;">
-                            <button type="submit" class="btn btn-outline-success mt-1 wide">Update Recipe</button>
-                        </form>
-                        <a class="btn btn-outline-success mt-1" href="{% url 'staff:create_category' %}">Create a New Category</a>
-                        <a class="btn btn-outline-primary mt-1" href="{% url 'recipe:recipe_single' id=recipe.id %}">See the Customers View</a>
-                        <form class="mt-1 wide" action="{% url 'recipe:delete_recipe' id=recipe.id %}" method="delete">
-                            {% csrf_token %}
-                            <button class="btn btn-outline-danger wide" type="submit">Delete {{ recipe.title }}</button>
-                        </form>
-                    </div>
+                        <button class="btn btn-outline-danger wide" type="submit">Delete {{ ingredient.name }}</button>
+                    </form>
                 </div>
+                {% endfor %}
+            </div>
+            {% load crispy_forms_tags %}
+            <div class="p-3">
+                <form method="POST" class="form-group" class="wide" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <div class="btn-group-vertical" style="width:70%;">
+                        <button type="submit" class="btn btn-outline-success mt-1 wide">Update Recipe</button>
+                </form>
+                <a class="btn btn-outline-success mt-1" href="{% url 'staff:create_category' %}">Create a New
+                    Category</a>
+                <a class="btn btn-outline-primary mt-1" href="{% url 'recipe:recipe_single' id=recipe.id %}">See the
+                    Customers View</a>
+                <form class="mt-1 wide" action="{% url 'recipe:delete_recipe' id=recipe.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger wide" type="submit">Delete {{ recipe.title }}</button>
+                </form>
             </div>
         </div>
     </div>
-    <script src="{% static 'js/app.js' %}"></script>
+</div>
+</div>
+<script src="{% static 'js/app.js' %}"></script>
 {% endblock content %}

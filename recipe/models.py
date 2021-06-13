@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-
+from datetime import datetime
 
 class Category(models.Model):
     title = models.CharField(max_length=30)
@@ -26,6 +26,8 @@ class Recipe(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
     method = models.TextField(default="blah blah blah")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return reverse('recipe:recipe_single', args=[self.id])

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from recipe.models import Category
 from ingredient.models import Measurement
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect
 from .forms import CategoryForm, MeasurementForm
@@ -12,7 +13,8 @@ def create_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            messages.success(request, 'Category successfully created.')
+        return redirect("staff:edit_cat_measurement")
     else:
         form = CategoryForm()
     return render(request, "staff/create_category.html", {"form": form})
@@ -24,7 +26,8 @@ def create_measurement(request):
         form = MeasurementForm(request.POST)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            messages.success(request, 'Measurement successfully created.')
+        return redirect("staff:edit_cat_measurement")
     else:
         form = MeasurementForm()
     return render(request, "staff/create_measurement.html", {"form": form})
@@ -44,6 +47,7 @@ def edit_category(request, id):
         form = CategoryForm(request.POST, instance=category)
         if(form.is_valid):
             form.save()
+            messages.success(request, 'Category successfully updated.')
             return redirect("staff:edit_cat_measurement")
     else:
         data = {"title": category.title, "description": category.description}
@@ -58,6 +62,7 @@ def edit_measurement(request, id):
         form = MeasurementForm(request.POST, instance=measurement)
         if(form.is_valid):
             form.save()
+            messages.success(request, 'Measurement successfully updated.')
             return redirect("staff:edit_cat_measurement")
     else:
         data = {"unit_shorthand": measurement.unit_shorthand, "unit_fullname": measurement.unit_fullname}
@@ -69,6 +74,7 @@ def edit_measurement(request, id):
 def delete_category(request, id):
     category = Category.objects.get(id=id)
     category.delete()
+    messages.warning(request, 'Category successfully deleted.')
     return redirect("staff:edit_cat_measurement")
 
 
@@ -76,4 +82,5 @@ def delete_category(request, id):
 def delete_measurement(request, id):
     measurement = Measurement.objects.get(id=id)
     measurement.delete()
+    messages.warning(request, 'Measurement successfully deleted.')
     return redirect("staff:edit_cat_measurement")

@@ -6,7 +6,7 @@ from payment.forms import PaymentForm
 
 def add(request):
     basket = Basket(request)
-    if request.method == "POST":
+    if request.POST.get('action') == 'post':
         form = PaymentForm(request.POST)
         user_id = request.user.id
         order_key = request.POST.get('order_key')
@@ -20,7 +20,7 @@ def add(request):
                 order = Order.objects.create(user_id=user_id, fullname=f"{form['first_name']} {form['last_name']}",
                                              address1=form['address_line_1'], address2=form['address_line_2'], city=form['town_city'],
                                              phone=request.user.phone_number, postcode=form['postcode'], total_paid=baskettotal,
-                                             order_key=order_key)
+                                             order_key=order_key, billing_status=True)
                 order_id = order.pk
                 for item in basket:
                     OrderItem.objects.create(order_id=order_id, recipe=item['recipe'], price=item['price'], quantity=item['qty'])

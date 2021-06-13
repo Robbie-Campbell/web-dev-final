@@ -11,8 +11,9 @@
             <div class="d-flex border-bottom justify-content-between">
                 <h3>Billing Address</h3>
                 {% if use_data %}
-                <form method="GET">
-                    <button name='populate' class="btn btn-outline-secondary btn-sm">Use Your Existing Customer Details for form?</button>
+                <form method="GET" name="pull_cust_data">
+                    <button type="submit" name='populate' class="btn btn-outline-secondary btn-sm">Use Your Existing
+                        Customer Details for form?</button>
                 </form>
                 {% endif %}
             </div>

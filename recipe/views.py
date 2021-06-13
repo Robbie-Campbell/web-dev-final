@@ -6,13 +6,15 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .forms import CreateRecipeForm, EditRecipeForm
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.contrib import messages
 from core import settings
+from django.core.files.storage import default_storage
 
 
 def home(request):
     recipes = []
     for category in Category.objects.all():
-        recipes += Recipe.objects.filter(category=category)[:3]
+        recipes += Recipe.objects.filter(category=category, published=True).order_by('-created')[:3]
     return render(request, 'navigation/index.html', {"recipes": recipes})
 
 
@@ -23,12 +25,20 @@ def single(request, id):
 
 
 def index(request):
-    recipes = Recipe.objects.all()
+    recipes = None
+    if request.user.is_staff:
+        recipes = Recipe.objects.all().order_by('-created')
+    else:
+        recipes = Recipe.objects.all().filter(published=True).order_by('-created')
     return render(request, 'recipe/list.html', {"recipes": recipes})
 
 
 def category(request, id):
-    recipes = Recipe.objects.filter(category__id=id).filter(published=True)
+    recipes = None
+    if request.user.is_staff:
+        recipes = Recipe.objects.filter(category__id=id).order_by('-created')
+    else:
+        recipes = Recipe.objects.filter(category__id=id).filter(published=True).order_by('-created')
     return render(request, 'recipe/list.html', {"recipes": recipes})
 
 
@@ -36,7 +46,7 @@ def search_results(request):
     query = request.GET.get('q')
     object_list = Recipe.objects.filter(
         Q(title__icontains=query) | Q(category__title__icontains=query) | Q(author__username__icontains=query)
-    ).filter(published=True)
+    ).filter(published=True).order_by('-created')
     return render(request, 'navigation/search_results.html', {"recipes": object_list})
 
 
@@ -48,7 +58,7 @@ def create_recipe(request):
             form.save(commit=False)
             form.instance.author = request.user
             task = form.save()
-
+            messages.success(request, 'Recipe successfully created. (Unpublished)')
             return redirect("recipe:edit_recipe", id=task.id)
     else:
         form = CreateRecipeForm()
@@ -62,11 +72,12 @@ def edit_recipe(request, id):
     if(request.method == "POST"):
         form = EditRecipeForm(request.POST, request.FILES, instance=recipe)
         if(form.is_valid):
-            if not recipe.image.path == os.path.join(settings.MEDIA_ROOT, "default.png"):
+            if not recipe.image.path == os.path.join(settings.MEDIA_ROOT, "default.png") and default_storage.exists(recipe.image.path):
                 os.remove(recipe.image.path)
             form.save(commit=False)
             form.instance.published = True
             form.save()
+            messages.success(request, 'Recipe successfully updated.')
             return redirect("recipe:recipe_single", id=id)
     else:
         data = {"title": recipe.title, "image": recipe.image, "description": recipe.description, "price": recipe.price, "category": recipe.category}
@@ -80,4 +91,5 @@ def edit_recipe(request, id):
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id=id)
     recipe.delete()
+    messages.warning(request, 'Recipe successfully deleted.')
     return redirect('home')

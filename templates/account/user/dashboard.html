@@ -18,27 +18,31 @@
 
                     <div class="pe-3 border-bottom">{{ order.created }}</div>
                     <div class="dropdown border-bottom mt-2 mb-2">
-                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             View Shipping details
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownLink">
                             <li class="dropdown-item">Addressee Name: {{order.fullname}}</li>
                             <li class="dropdown-item">Address Line 1: {{order.address1}}</li>
-                            {% if order.address2 %}<li class="dropdown-item">Address Line 2: {{order.address2}}</li>{% endif %}
+                            {% if order.address2 %}<li class="dropdown-item">Address Line 2: {{order.address2}}</li>
+                            {% endif %}
                             <li class="dropdown-item">Postcode: {{order.postcode}}</li>
                         </ul>
                     </div>
                     <div class="dropdown mt-2 mb-2">
-                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             View Ordered Items
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownLink">
                             {% for item in order.items.all %}
-                                <a class="text-decoration-none" href="{{ item.recipe.get_absolute_url }}">
-                                    <li class="dropdown-item">{{item.recipe|title}}: £{{ item.price }}</li>
-                                </a>
+                            <a class="text-decoration-none" href="{{ item.recipe.get_absolute_url }}">
+                                <li class="dropdown-item">{{ item.quantity }} x {{item.recipe|title}}: £{{ item.price }}
+                                </li>
+                            </a>
                             {% endfor %}
                         </ul>
                     </div>
